@@ -1,7 +1,3 @@
-chrome.extension.sendMessage({}, function(response) {
-	var readyStateCheckInterval = setInterval(function() {
-	if (document.readyState === "complete") {
-		clearInterval(readyStateCheckInterval);
 /*!***************************************************
 * mark.js v8.11.1
 * https://markjs.io/
@@ -929,19 +925,26 @@ function Mark(ctx) {
 return Mark;
 
 })));
-		
 
 
-setInterval(
 
-	
+let array;
+chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
+  let list = request.list.toString();
+  arrayWithquote = list.replace(/"/g, "");
+  array = arrayWithquote.split(",");
+  console.log("Highlighting:   " + array);
+  console.log("Colour:   " + array[0]);
 
-function(){	var context = document.querySelector("html");
-var instance = new Mark(context);
-instance.mark('iwise');}
+  // new HR("body", {
+  //   highlight: array,
+  //   backgroundColor: array[0]
+  // }).hr();
 
-,3000);
-
-	}
-	}, 10);
+  var context = document.querySelector("body");
+  var instance = new Mark(context);
+  instance.mark(array, {
+    separateWordSearch: false,
+    className: array[0],
+  });
 });

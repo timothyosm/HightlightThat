@@ -4,10 +4,10 @@ document.querySelector("#save").addEventListener("click", saveList);
 
 function saveList(){
 
-    var title = document.querySelector("#Title").value;
-    var list = document.querySelector("#list").value;
-  localStorage.setItem(title, JSON.stringify(list));
+    let title  = document.querySelector("#Title").value;
+    let list = document.querySelector("#list").value;
+    let colour = document.querySelector("#Colour").value;
+  localStorage.setItem(title, JSON.stringify(colour + ',' + list));
 
 }
-
 
