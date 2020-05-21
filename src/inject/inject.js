@@ -945,6 +945,7 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
   var instance = new Mark(context);
   instance.mark(array, {
     separateWordSearch: false,
+    iframes: true,
     className: array[0],
   });
 });
