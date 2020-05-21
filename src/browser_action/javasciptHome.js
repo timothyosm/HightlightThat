@@ -1,5 +1,3 @@
-let listArray = [];
-
 Object.keys(localStorage).forEach((key) => {
   var newRow = document.querySelector("#table").insertRow();
   newRow.innerHTML =
@@ -8,27 +6,22 @@ Object.keys(localStorage).forEach((key) => {
     "</strong></td><td><input class='button button-outline' value = 'EDIT' id=" +
     key +
     "  ></input>" +
-    "    <td>" +
-    "       <a value='Add New'" +
-    "href='browser_action.html'" +
-    "           class='button button-outline'" +
-    "           id='Delete'>Delete</a>" +
-    "</td>" +
+    // "    <td>" +
+
+    //  "    <td><input class='button button-outline' value = 'Delete' id='" +"Delete'></input>  </td>"+
+    // "</td>" +
     "</td>";
-  listArray.push(localStorage[key]);
-  console.log(listArray);
-  document.querySelector("#Delete").addEventListener("click", deleteItem);
 
-  function deleteItem() {
+  // document.querySelector("#Delete").addEventListener("click", deleteItem);
 
+  // function deleteItem(key) {
 
-
-    var x = confirm("Are you sure you want to delete?");
-    if (x)
-    localStorage.removeItem(key);
-    else
-      return false;
-  }
+  //   var x = confirm("Are you sure you want to delete?");
+  //   if (x)
+  //   localStorage.removeItem(key);
+  //   else
+  //     return false;
+  // }
   document.getElementById(key).addEventListener("click", function () {
     let editClicked = localStorage.getItem(key);
     let array = editClicked.replace(/['"]+/g, "").split(",").slice(1);
