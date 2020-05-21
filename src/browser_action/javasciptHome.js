@@ -20,7 +20,14 @@ Object.keys(localStorage).forEach((key) => {
   document.querySelector("#Delete").addEventListener("click", deleteItem);
 
   function deleteItem() {
+
+
+
+    var x = confirm("Are you sure you want to delete?");
+    if (x)
     localStorage.removeItem(key);
+    else
+      return false;
   }
   document.getElementById(key).addEventListener("click", function () {
     let editClicked = localStorage.getItem(key);
