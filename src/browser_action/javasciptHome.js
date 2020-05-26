@@ -3,25 +3,13 @@ Object.keys(localStorage).forEach((key) => {
   newRow.innerHTML =
     "<td><strong>" +
     key +
-    "</strong></td><td><input class='button button-outline' value = 'EDIT' id=" +
+    "</strong></td><td><input style='float: right;'  class='button button-outline' value = 'EDIT' id=" +
     key +
     "  ></input>" +
-    // "    <td>" +
 
-    //  "    <td><input class='button button-outline' value = 'Delete' id='" +"Delete'></input>  </td>"+
-    // "</td>" +
     "</td>";
 
-  // document.querySelector("#Delete").addEventListener("click", deleteItem);
 
-  // function deleteItem(key) {
-
-  //   var x = confirm("Are you sure you want to delete?");
-  //   if (x)
-  //   localStorage.removeItem(key);
-  //   else
-  //     return false;
-  // }
   document.getElementById(key).addEventListener("click", function () {
     let editClicked = localStorage.getItem(key);
     let array = editClicked.replace(/['"]+/g, "").split(",").slice(1);
@@ -53,11 +41,17 @@ Object.keys(localStorage).forEach((key) => {
       '        class="button button-outline"' +
       '        id="saveEdit"' +
       "        >Save</a>" +
+      "    <a href='browser_action.html'" +
+      "      value='Delete'" +
+      "      class='button button-outline'" +
+      "      id='delete' type='delete'>Delete</a>" +
       "    </fieldset>" +
+  
       "  </form>" +
       "</body>";
 
     document.querySelector("#saveEdit").addEventListener("click", saveList);
+    document.querySelector("#delete").addEventListener("click", deleteList);
 
     console.log(key.value);
 
@@ -66,27 +60,28 @@ Object.keys(localStorage).forEach((key) => {
       let colour = document.querySelector("#Colour").value;
       localStorage.setItem(key, JSON.stringify(colour + "," + list));
     }
+
+    function deleteList(){
+  
+      let title = document.querySelector("#Title").innerText
+      localStorage.removeItem(title);
+      href='browser_action.html'
+    }
   });
 });
 
 chrome.tabs.onUpdated.addListener(function (tabId, changeInfo, tab) {
-  popup();
+  //   chrome.tabs.query({ currentWindow: true, active: true }, function (tabs) {
+  //     var activeTab = tabs[0];
+  //     for (i = 0; i < cars.length; i++) {
+  //       chrome.tabs.sendMessage(activeTab.id, { list: listArray });
+  //     }
+  //   });
 
-  function popup() {
-    //   chrome.tabs.query({ currentWindow: true, active: true }, function (tabs) {
-    //     var activeTab = tabs[0];
-    //     for (i = 0; i < cars.length; i++) {
-    //       chrome.tabs.sendMessage(activeTab.id, { list: listArray });
-    //     }
-    //   });
-
-    Object.keys(localStorage).forEach((key) => {
-      chrome.tabs.query({ currentWindow: true, active: true }, function (tabs) {
-        var activeTab = tabs[0];
-        chrome.tabs.sendMessage(activeTab.id, { list: localStorage[key] });
-      });
+  Object.keys(localStorage).forEach((key) => {
+    chrome.tabs.query({ currentWindow: true, active: true }, function (tabs) {
+      var activeTab = tabs[0];
+      chrome.tabs.sendMessage(activeTab.id, { list: localStorage[key] });
     });
-  }
-
-  setInterval(popup(), 3000);
+  });
 });
